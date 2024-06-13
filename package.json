@@ -1,6 +1,7 @@
 {
   "name": "pms",
   "version": "0.1.0",
+  "main": "main.js",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
@@ -15,7 +16,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron-start": "cross-env ELECTRON_START_URL=http://localhost:3000 electron .",
+    "electron-build": "npm run build && electron .",
+    "release-win": "electron-packager ./ mailer --platform=win32 --arch=x64 --overwrite",
+    "dist": "npm run build && electron-builder"
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +39,36 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "electron-builder": "^24.13.3",
+    "electron": "^15.5.7"
+  },
+  "build": {
+    "appId": "PMS",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "ia32"
+          ]
+        }
+      ],
+      "icon": "build/favicon.ico"
+    },
+    "directories": {
+      "buildResources": "build"
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*",
+      "main.js",
+      "preload.js"
+    ],
+    "extraMetadata": {
+      "main": "dist/main.js"
+    }
   }
 }
