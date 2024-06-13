@@ -1,9 +1,12 @@
 const { app, BrowserWindow } = require("electron");
+const dotenv = require("dotenv");
 const path = require("path");
 const url = require("url");
 
+dotenv.config();
+
 function createWindow() {
-  const mainWindow = new BrowserWindow({
+  let mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
@@ -12,6 +15,7 @@ function createWindow() {
     },
   });
 
+  console.log("process.env.ELECTRON_START_URL", process.env.ELECTRON_START_URL);
   const startUrl =
     process.env.ELECTRON_START_URL ||
     url.format({
@@ -19,6 +23,8 @@ function createWindow() {
       protocol: "file:",
       slashes: true,
     });
+
+  console.log("startUrl", startUrl);
   mainWindow.loadURL(startUrl);
 
   mainWindow.on("closed", function () {

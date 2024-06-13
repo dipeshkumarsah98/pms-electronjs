@@ -1,12 +1,13 @@
 {
   "name": "pms",
   "version": "0.1.0",
-  "main": "main.js",
+  "main": "public/main.js",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "dotenv": "^16.4.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
@@ -17,6 +18,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "electron:serve": "concurrently -k \"cross-env BROWSER=none npm start \" \"npm run electron:start\"",
+    "electron:start": "wait-on tcp:3000 && electron .",
+    "electron:build": "npm run build && electron-builder -c.extraMetadata.main=build/main.js",
     "electron-start": "cross-env ELECTRON_START_URL=http://localhost:3000 electron .",
     "electron-build": "npm run build && electron .",
     "release-win": "electron-packager ./ mailer --platform=win32 --arch=x64 --overwrite",
@@ -41,9 +45,11 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
+    "electron": "^15.5.7",
     "electron-builder": "^24.13.3",
-    "electron": "^15.5.7"
+    "wait-on": "^7.2.0"
   },
   "build": {
     "appId": "PMS",
@@ -56,7 +62,7 @@
           ]
         }
       ],
-      "icon": "build/favicon.ico"
+      "icon": "build/icon.ico"
     },
     "directories": {
       "buildResources": "build"
@@ -64,11 +70,8 @@
     "files": [
       "build/**/*",
       "node_modules/**/*",
-      "main.js",
-      "preload.js"
-    ],
-    "extraMetadata": {
-      "main": "dist/main.js"
-    }
+      "dist/**/*",
+      "package.json"
+    ]
   }
 }
