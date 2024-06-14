@@ -15,14 +15,16 @@ function createWindow() {
     },
   });
 
-  console.log("process.env.ELECTRON_START_URL", process.env.ELECTRON_START_URL);
+  console.log(`${__dirname}`);
+
   const startUrl =
     process.env.ELECTRON_START_URL ||
-    url.format({
-      pathname: path.join(__dirname, "build", "index.html"),
-      protocol: "file:",
-      slashes: true,
-    });
+    `file://${path.join(__dirname, "../build/index.html")}`;
+  // url.format({
+  //   pathname: path.join(__dirname, "../build/index.html"),
+  //   protocol: "file:",
+  //   slashes: true,
+  // });
 
   console.log("startUrl", startUrl);
   mainWindow.loadURL(startUrl);

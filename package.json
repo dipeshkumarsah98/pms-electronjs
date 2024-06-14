@@ -1,5 +1,6 @@
 {
   "name": "pms",
+  "homepage": "./",
   "version": "0.1.0",
   "main": "public/main.js",
   "private": true,
@@ -71,7 +72,9 @@
       "build/**/*",
       "node_modules/**/*",
       "dist/**/*",
-      "package.json"
+      "package.json",
+      "public/main.js",
+      "public/preload.js"
     ]
   }
 }
